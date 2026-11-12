@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PETRO OUTFIT — Магазин одежды</title>
+    <style>
+        :root {
+            --bg: #0b0b0e;
+            --surface: #141419;
+            --card: #1b1b22;
+            --text: #f4f4f6;
+            --muted: #9898a6;
+            --accent: #d4af37;
+            --accent-hover: #ecc74b;
+            --border: #2a2a35;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 11, 14, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            user-select: none;
+            padding: 4px 6px;
+            border-radius: 10px;
+        }
+
+        .logo-box:active {
+            transform: scale(0.98);
+        }
+
+        .logo-img {
+            height: 44px;
+            width: 44px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            background: #fff;
+        }
+
+        .logo-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        .header-btns {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-outline {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 9px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+        }
+
+        .badge {
+            background: var(--accent);
+            color: #000;
+            font-weight: 800;
+            font-size: 0.78rem;
+            padding: 2px 7px;
+            border-radius: 20px;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 54px 5% 40px;
+            background: radial-gradient(circle at top, rgba(212, 175, 55, 0.14), transparent 65%);
+        }
+
+        .hero-logo-big {
+            width: 110px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 18px;
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            margin-bottom: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero h1 {
+            font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 560px;
+            margin: 0 auto 22px;
+        }
+
+        .delivery-pill {
+            display: inline-block;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 0.88rem;
+        }
+
+        .delivery-pill b {
+            color: var(--accent);
+        }
+
+        /* Catalog */
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 10px 5% 80px;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background: var(--surface);
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .card-img-box {
+            position: relative;
+            height: 290px;
+            background: #0f0f13;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(11, 11, 14, 0.85);
+            color: var(--accent);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .stock-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(11, 11, 14, 0.88);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.74rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .stock-badge.low {
+            color: #fbbf24;
+            border-color: rgba(251, 191, 36, 0.45);
+        }
+
+        .stock-badge.out {
+            color: var(--danger);
+            border-color: rgba(239, 68, 68, 0.45);
+        }
+
+        .card-body {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 0.84rem;
+            color: var(--muted);
+            margin-bottom: 14px;
+            flex-grow: 1;
+        }
+
+        .sizes {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .size-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .size-btn.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(212, 175, 55, 0.12);
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+        }
+
+        .price {
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+
+        .btn-gold {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-gold:hover:not(:disabled) {
+            background: var(--accent-hover);
+        }
+
+        .btn-gold:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Overlays & Modals */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.78);
+            z-index: 500;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .overlay.open {
+            display: flex;
+        }
+
+        .overlay.drawer-mode {
+            justify-content: flex-end;
+            padding: 0;
+        }
+
+        .drawer {
+            width: 100%;
+            max-width: 440px;
+            height: 100%;
+            background: var(--surface);
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 720px;
+            max-height: 90vh;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .modal-head {
+            padding: 18px 22px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-head h2 {
+            font-size: 1.15rem;
+        }
+
+        .close-x {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 1.6rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-x:hover {
+            color: #fff;
+        }
+
+        .modal-body {
+            padding: 20px 22px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        /* Forms */
+        .field {
+            margin-bottom: 12px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 5px;
+        }
+
+        .input {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 13px;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            outline: none;
+        }
+
+        .input:focus {
+            border-color: var(--accent);
+        }
+
+        .file-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-preview-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            display: none;
+        }
+
+        .row-2 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 10px;
+        }
+
+        /* Payment selector */
+        .pay-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .pay-option {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 10px 6px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .pay-option.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(212, 175, 55, 0.12);
+        }
+
+        /* Cart Items */
+        .cart-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 11px 14px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .qty-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qty-btn {
+            width: 26px;
+            height: 26px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .totals {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            margin: 16px 0;
+        }
+
+        .totals-line {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .totals-line.grand {
+            border-top: 1px solid var(--border);
+            padding-top: 8px;
+            margin-bottom: 0;
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.08rem;
+        }
+
+        /* Support Widget */
+        .support-fab {
+            position: fixed;
+            bottom: 22px;
+            right: 22px;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 400;
+            box-shadow: 0 6px 22px rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .support-popup {
+            position: fixed;
+            bottom: 92px;
+            right: 22px;
+            width: 350px;
+            max-width: calc(100vw - 44px);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            z-index: 400;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 14px 40px rgba(0,0,0,0.75);
+            overflow: hidden;
+        }
+
+        .support-popup.open {
+            display: flex;
+        }
+
+        .chat-messages {
+            height: 220px;
+            overflow-y: auto;
+            padding: 14px;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .msg-bubble {
+            max-width: 85%;
+            padding: 9px 12px;
+            border-radius: 10px;
+            font-size: 0.84rem;
+            line-height: 1.4;
+        }
+
+        .msg-bot {
+            background: var(--card);
+            border: 1px solid var(--border);
+            align-self: flex-start;
+        }
+
+        .msg-user {
+            background: var(--accent);
+            color: #000;
+            font-weight: 500;
+            align-self: flex-end;
+        }
+
+        /* Admin Tabs */
+        .tabs {
+            display: flex;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 8px;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-weight: 700;
+            font-size: 0.83rem;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .admin-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-card img {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .stock-edit-box {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stock-mini-btn {
+            width: 26px;
+            height: 26px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            padding: 6px 11px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .status-box {
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            margin-bottom: 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--card);
+            color: #fff;
+            border: 1px solid var(--accent);
+            padding: 11px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            z-index: 9999;
+            display: none;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 26px 5%;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-box" id="logoSecretBtn">
+        
+        <span class="logo-title">PETRO OUTFIT</span>
+    </div>
+    <div class="header-btns">
+        <button class="btn-outline" id="openCartBtn">
+            <span>Корзина</span>
+            <span class="badge" id="cartBadge">0</span>
+        </button>
+    </div>
+</header>
+
+<section class="hero">
+        <h1>СТИЛЬ ТВОЕГО ГОРОДА</h1>
+    <p>Премиальная повседневная и уличная одежда. Плотные ткани, идеальная посадка и отправка в день заказа.</p>
+    <div class="delivery-pill">
+        🚚 Петропавловск — <b>БЕСПЛАТНО</b> &nbsp;|&nbsp; Весь Казахстан — <b>1 500 ₸</b>
+    </div>
+</section>
+
+<div class="container">
+    <div class="filters" id="filterBar">
+        <button class="filter-btn active" data-cat="Все">Все товары</button>
+        <button class="filter-btn" data-cat="Худи">Худи</button>
+        <button class="filter-btn" data-cat="Футболки">Футболки</button>
+        <button class="filter-btn" data-cat="Верхняя одежда">Верхняя одежда</button>
+        <button class="filter-btn" data-cat="Брюки">Брюки</button>
+    </div>
+    <div class="grid" id="catalogGrid"></div>
+</div>
+
+<!-- Корзина -->
+<div class="overlay drawer-mode" id="cartOverlay">
+    <div class="drawer">
+        <div class="modal-head">
+            <h2>Корзина и заказ</h2>
+            <button class="close-x" id="closeCartBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="cartList"></div>
+
+            <div id="checkoutBlock" style="display:none;">
+                <h3 style="font-size:1rem; margin:16px 0 10px;">Данные для доставки</h3>
+                <div class="field">
+                    <label>Ваше имя *</label>
+                    <input type="text" id="orderName" class="input" placeholder="Например: Максим">
+                </div>
+                <div class="field">
+                    <label>Телефон / WhatsApp / Telegram *</label>
+                    <input type="text" id="orderPhone" class="input" placeholder="+7 (7__) ___-__-__">
+                </div>
+                <div class="field">
+                    <label>Город *</label>
+                    <select id="orderCity" class="input">
+                        <option value="Петропавловск">Петропавловск (Бесплатно)</option>
+                        <option value="Астана">Астана (1 500 ₸)</option>
+                        <option value="Алматы">Алматы (1 500 ₸)</option>
+                        <option value="Шымкент">Шымкент (1 500 ₸)</option>
+                        <option value="Караганда">Караганда (1 500 ₸)</option>
+                        <option value="Костанай">Костанай (1 500 ₸)</option>
+                        <option value="Кокшетау">Кокшетау (1 500 ₸)</option>
+                        <option value="Павлодар">Павлодар (1 500 ₸)</option>
+                        <option value="Актобе">Актобе (1 500 ₸)</option>
+                        <option value="Другой город РК">Другой город РК (1 500 ₸)</option>
+                    </select>
+                </div>
+                <div class="row-2">
+                    <div class="field">
+                        <label>Улица *</label>
+                        <input type="text" id="orderStreet" class="input" placeholder="Например: Конституции Казахстана">
+                    </div>
+                    <div class="field">
+                        <label>Номер дома *</label>
+                        <input type="text" id="orderHouse" class="input" placeholder="Например: 24 / кв. 12">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Способ оплаты *</label>
+                    <div class="pay-options" id="paymentMethodBar">
+                        <button type="button" class="pay-option active" data-pay="Kaspi">Kaspi</button>
+                        <button type="button" class="pay-option" data-pay="Halyk">Halyk</button>
+                        <button type="button" class="pay-option" data-pay="Наличными">Наличными</button>
+                    </div>
+                </div>
+
+                <div class="totals">
+                    <div class="totals-line">
+                        <span>Сумма товаров:</span>
+                        <span id="subTotalText">0 ₸</span>
+                    </div>
+                    <div class="totals-line">
+                        <span>Доставка (<span id="cityLabelText">Петропавловск</span>):</span>
+                        <span id="deliveryText">0 ₸</span>
+                    </div>
+                    <div class="totals-line">
+                        <span>Оплата:</span>
+                        <span id="payLabelText" style="color:var(--accent); font-weight:700;">Kaspi</span>
+                    </div>
+                    <div class="totals-line grand">
+                        <span>Итого:</span>
+                        <span id="grandTotalText">0 ₸</span>
+                    </div>
+                </div>
+
+                <button class="btn-gold" style="width:100%; padding:13px;" id="submitOrderBtn">Подтвердить заказ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Виджет поддержки -->
+<button class="support-fab" id="supportToggleBtn" title="Чат поддержки">💬</button>
+<div class="support-popup" id="supportPopup">
+    <div class="modal-head" style="padding:13px 16px; background:var(--card);">
+        <div>
+            <h2 style="font-size:0.95rem;">Поддержка PETRO OUTFIT</h2>
+            <span style="font-size:0.75rem; color:var(--success);">● Онлайн</span>
+        </div>
+        <button class="close-x" id="supportCloseBtn">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessagesBox">
+        <div class="msg-bubble msg-bot">
+            Здравствуйте! Подсказать по размерам, наличию или доставке? Напишите ваш контакт и вопрос ниже.
+        </div>
+    </div>
+    <div style="padding:12px; border-top:1px solid var(--border); background:var(--surface);">
+        <div class="field" style="margin-bottom:8px;">
+            <input type="text" id="supContactInput" class="input" placeholder="Ваш @telegram или телефон" style="padding:8px 10px; font-size:0.85rem;">
+        </div>
+        <div style="display:flex; gap:6px;">
+            <input type="text" id="supTextInput" class="input" placeholder="Введите сообщение..." style="padding:8px 10px; font-size:0.85rem;">
+            <button class="btn-gold" id="supSendBtn" style="padding:8px 14px;">➤</button>
+        </div>
+    </div>
+</div>
+
+<!-- Вход в Админку -->
+<div class="overlay" id="adminLoginModal">
+    <div class="modal" style="max-width:380px;">
+        <div class="modal-head">
+            <h2>Вход в админ-панель</h2>
+            <button class="close-x" id="closeLoginModalBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="field">
+                <label>Пароль</label>
+                <input type="password" id="adminPassField" class="input" placeholder="Введите пароль">
+            </div>
+            <button class="btn-gold" style="width:100%; padding:11px;" id="loginSubmitBtn">Войти</button>
+        </div>
+    </div>
+</div>
+
+<!-- Админ-панель -->
+<div class="overlay" id="adminDashboardModal">
+    <div class="modal">
+        <div class="modal-head">
+            <h2>Админ-панель PETRO OUTFIT</h2>
+            <button class="close-x" id="closeAdminModalBtn">&times;</button>
+        </div>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="tabProducts">Товары и остатки</button>
+            <button class="tab-btn" data-tab="tabOrders">Заказы и Чат (<span id="ordersCounter">0</span>)</button>
+            <button class="tab-btn" data-tab="tabTelegram">Telegram Бот</button>
+            <button class="tab-btn" data-tab="tabPass">Пароль</button>
+        </div>
+        <div class="modal-body">
+            <!-- Вкладка 1: Товары -->
+            <div id="tabProducts" class="tab-pane">
+                <h3 style="font-size:0.95rem; margin-bottom:10px;">Добавить товар</h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <div class="field">
+                        <label>Название</label>
+                        <input type="text" id="addName" class="input" placeholder="Худи Oversize">
+                    </div>
+                    <div class="field">
+                        <label>Цена (₸)</label>
+                        <input type="number" id="addPrice" class="input" placeholder="19000">
+                    </div>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+                    <div class="field">
+                        <label>Категория</label>
+                        <select id="addCat" class="input">
+                            <option value="Худи">Худи</option>
+                            <option value="Футболки">Футболки</option>
+                            <option value="Верхняя одежда">Верхняя одежда</option>
+                            <option value="Брюки">Брюки</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Остаток (шт.)</label>
+                        <input type="number" id="addStock" class="input" value="10" min="0">
+                    </div>
+                    <div class="field">
+                        <label>Фото (с устройства)</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="addImgFile" class="input" accept="image/*" style="padding:6px; font-size:0.75rem;">
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Описание</label>
+                    <input type="text" id="addDesc" class="input" placeholder="100% хлопок, плотность 420 г/м²">
+                </div>
+                <button class="btn-gold" style="width:100%; margin-bottom:20px;" id="addProductBtn">+ Добавить товар</button>
+
+                <h3 style="font-size:0.95rem; margin-bottom:10px;">Список товаров и управление остатками</h3>
+                <div id="adminProductsContainer"></div>
+            </div>
+
+            <!-- Вкладка 2: Заказы и сообщения -->
+            <div id="tabOrders" class="tab-pane" style="display:none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h3 style="font-size:0.95rem;">Входящие заявки и вопросы</h3>
+                    <button class="btn-danger" id="clearLogsBtn">Очистить историю</button>
+                </div>
+                <div id="adminLogsContainer"></div>
+            </div>
+
+            <!-- Вкладка 3: Telegram -->
+            <div id="tabTelegram" class="tab-pane" style="display:none;">
+                <div class="status-box" id="tgDiagBox">Статус: не проверено</div>
+                <div class="field">
+                    <label>Bot Token (от @BotFather)</label>
+                    <input type="text" id="tgTokenField" class="input" placeholder="123456789:AAH...">
+                </div>
+                <div class="field">
+                    <label>Ваш Chat ID (от @userinfobot)</label>
+                    <input type="text" id="tgChatField" class="input" placeholder="987654321">
+                </div>
+                <button class="btn-gold" style="width:100%; margin-bottom:10px;" id="saveTgBtn">Сохранить настройки</button>
+                <button class="btn-outline" style="width:100%; justify-content:center;" id="testTgBtn">Проверить и отправить тест в Telegram</button>
+            </div>
+
+            <!-- Вкладка 4: Пароль -->
+            <div id="tabPass" class="tab-pane" style="display:none;">
+                <div class="field">
+                    <label>Новый пароль администратора</label>
+                    <input type="password" id="newPassField" class="input" placeholder="Минимум 4 символа">
+                </div>
+                <button class="btn-gold" style="width:100%;" id="savePassBtn">Изменить пароль</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toastBox"></div>
+
+<footer>
+    © 2026 PETRO OUTFIT. Петропавловск, Казахстан.
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const INITIAL_PRODUCTS = [
+        {
+            id: 1,
+            name: "Худи PETRO HEAVY BLACK",
+            category: "Худи",
+            price: 19500,
+            stock: 8,
+            desc: "Оверсайз худи из плотного футера 420 г/м². Глубокий капюшон, базовый черный цвет.",
+            img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=700&q=80"
+        },
+        {
+            id: 2,
+            name: "Футболка BASIC GRAPHITE",
+            category: "Футболки",
+            price: 9500,
+            stock: 14,
+            desc: "Плотный хлопок 240 г/м², свободный крой, не теряет форму после стирок.",
+            img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=700&q=80"
+        },
+        {
+            id: 3,
+            name: "Бомбер URBAN STEALTH",
+            category: "Верхняя одежда",
+            price: 32000,
+            stock: 4,
+            desc: "Ветрозащитная матовая ткань, утепленная подкладка, надежная фурнитура.",
+            img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=700&q=80"
+        },
+        {
+            id: 4,
+            name: "Карго брюки TACTICAL",
+            category: "Брюки",
+            price: 21000,
+            stock: 6,
+            desc: "Удобный крой с утяжками снизу, накладные карманы, износостойкая ткань.",
+            img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=700&q=80"
+        }
+    ];
+
+    function loadStorage(key, fallback) {
+        try {
+            const raw = localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : fallback;
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    function saveStorage(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {}
+    }
+
+    let products = loadStorage("petro_products_v4", INITIAL_PRODUCTS);
+    let cart = loadStorage("petro_cart_v4", []);
+    let logs = loadStorage("petro_logs_v4", []);
+    let tgSettings = loadStorage("petro_tg_v4", { token: "", chatId: "" });
+    let adminPass = localStorage.getItem("petro_pass_v4") || "admin123";
+
+    let selectedSizes = {};
+    let activeCategory = "Все";
+    let selectedPayment = "Kaspi";
+    let newImgBase64 = "";
+
+    // Чтение выбранного файла картинки при добавлении товара
+    document.getElementById("addImgFile").addEventListener("change", function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                newImgBase64 = evt.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function toast(text) {
+        const el = document.getElementById("toastBox");
+        el.textContent = text;
+        el.style.display = "block";
+        clearTimeout(el._timer);
+        el._timer = setTimeout(() => { el.style.display = "none"; }, 3000);
+    }
+
+    function money(val) {
+        return Number(val).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₸";
+    }
+
+    function getInCartQty(prodId) {
+        return cart.filter(c => c.id === prodId).reduce((sum, item) => sum + item.qty, 0);
+    }
+
+    // --- Рендер каталога ---
+    function renderCatalog() {
+        const grid = document.getElementById("catalogGrid");
+        grid.innerHTML = "";
+
+        const list = activeCategory === "Все"
+            ? products
+            : products.filter(p => p.category === activeCategory);
+
+        list.forEach(p => {
+            if (!selectedSizes[p.id]) selectedSizes[p.id] = "L";
+            const stockVal = typeof p.stock === "number" ? p.stock : 0;
+
+            let stockClass = "stock-badge";
+            let stockText = `Осталось: ${stockVal} шт.`;
+            if (stockVal === 0) {
+                stockClass += " out";
+                stockText = "Нет в наличии";
+            } else if (stockVal <= 4) {
+                stockClass += " low";
+                stockText = `Осталось: ${stockVal} шт.`;
+            }
+
+            const card = document.createElement("div");
+            card.className = "card";
+
+            const sizesHtml = ["S", "M", "L", "XL"].map(s => {
+                const isAct = selectedSizes[p.id] === s ? "active" : "";
+                return `<button type="button" class="size-btn ${isAct}" data-id="${p.id}" data-size="${s}">${s}</button>`;
+            }).join("");
+
+            card.innerHTML = `
+                <div class="card-img-box">
+                    <span class="card-tag">${p.category}</span>
+                    <span class="${stockClass}">${stockText}</span>
+                    <img class="card-img" src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/500x600/1b1b22/d4af37?text=PETRO+OUTFIT'">
+                </div>
+                <div class="card-body">
+                    <div class="card-title">${p.name}</div>
+                    <div class="card-desc">${p.desc}</div>
+                    <div class="sizes">${sizesHtml}</div>
+                    <div class="card-bottom">
+                        <span class="price">${money(p.price)}</span>
+                        <button type="button" class="btn-gold add-cart-btn" data-id="${p.id}" ${stockVal === 0 ? "disabled" : ""}>
+                            ${stockVal === 0 ? "Распродано" : "В корзину"}
+                        </button>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    document.getElementById("catalogGrid").addEventListener("click", function(e) {
+        if (e.target.classList.contains("size-btn")) {
+            const id = Number(e.target.dataset.id);
+            const size = e.target.dataset.size;
+            selectedSizes[id] = size;
+            renderCatalog();
+        }
+        if (e.target.classList.contains("add-cart-btn")) {
+            const id = Number(e.target.dataset.id);
+            const prod = products.find(x => x.id === id);
+            if (!prod) return;
+
+            const currentInCart = getInCartQty(id);
+            if (currentInCart >= prod.stock) {
+                toast(`Больше нет в наличии (макс. ${prod.stock} шт.)`);
+                return;
+            }
+
+            const size = selectedSizes[id] || "L";
+            const found = cart.find(c => c.id === id && c.size === size);
+            if (found) {
+                found.qty += 1;
+            } else {
+                cart.push({ id: prod.id, name: prod.name, price: prod.price, size: size, qty: 1 });
+            }
+            saveStorage("petro_cart_v4", cart);
+            updateBadge();
+            toast(`Добавлено: ${prod.name} (${size})`);
+        }
+    });
+
+    document.getElementById("filterBar").addEventListener("click", function(e) {
+        if (e.target.classList.contains("filter-btn")) {
+            document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+            e.target.classList.add("active");
+            activeCategory = e.target.dataset.cat;
+            renderCatalog();
+        }
+    });
+
+    // --- Корзина ---
+    function updateBadge() {
+        const count = cart.reduce((acc, item) => acc + item.qty, 0);
+        document.getElementById("cartBadge").textContent = count;
+    }
+
+    function renderCart() {
+        const list = document.getElementById("cartList");
+        const form = document.getElementById("checkoutBlock");
+
+        if (cart.length === 0) {
+            list.innerHTML = `<p style="color:var(--muted); text-align:center; padding:40px 0;">Корзина пуста</p>`;
+            form.style.display = "none";
+            return;
+        }
+
+        form.style.display = "block";
+        list.innerHTML = cart.map((item, i) => `
+            <div class="cart-row">
+                <div>
+                    <div style="font-weight:700; font-size:0.92rem;">${item.name}</div>
+                    <div style="font-size:0.8rem; color:var(--muted);">Размер: <b>${item.size}</b> • ${money(item.price)}</div>
+                </div>
+                <div class="qty-box">
+                    <button type="button" class="qty-btn" data-idx="${i}" data-delta="-1">-</button>
+                    <span>${item.qty}</span>
+                    <button type="button" class="qty-btn" data-idx="${i}" data-delta="1">+</button>
+                </div>
+            </div>
+        `).join("");
+
+        calcTotals();
+    }
+
+    function calcTotals() {
+        const sub = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+        const city = document.getElementById("orderCity").value;
+        const deliv = city === "Петропавловск" ? 0 : 1500;
+        document.getElementById("cityLabelText").textContent = city;
+        document.getElementById("subTotalText").textContent = money(sub);
+        document.getElementById("deliveryText").textContent = deliv === 0 ? "Бесплатно (0 ₸)" : money(deliv);
+        document.getElementById("payLabelText").textContent = selectedPayment;
+        document.getElementById("grandTotalText").textContent = money(sub + deliv);
+    }
+
+    document.getElementById("cartList").addEventListener("click", function(e) {
+        if (e.target.classList.contains("qty-btn")) {
+            const idx = Number(e.target.dataset.idx);
+            const delta = Number(e.target.dataset.delta);
+            const item = cart[idx];
+            if (delta > 0) {
+                const prod = products.find(p => p.id === item.id);
+                if (prod && getInCartQty(item.id) >= prod.stock) {
+                    toast(`На складе осталось всего ${prod.stock} шт.`);
+                    return;
+                }
+            }
+            cart[idx].qty += delta;
+            if (cart[idx].qty <= 0) cart.splice(idx, 1);
+            saveStorage("petro_cart_v4", cart);
+            updateBadge();
+            renderCart();
+        }
+    });
+
+    document.getElementById("paymentMethodBar").addEventListener("click", function(e) {
+        if (e.target.classList.contains("pay-option")) {
+            document.querySelectorAll(".pay-option").forEach(b => b.classList.remove("active"));
+            e.target.classList.add("active");
+            selectedPayment = e.target.dataset.pay;
+            calcTotals();
+        }
+    });
+
+    document.getElementById("orderCity").addEventListener("change", calcTotals);
+    document.getElementById("openCartBtn").addEventListener("click", () => {
+        renderCart();
+        document.getElementById("cartOverlay").classList.add("open");
+    });
+    document.getElementById("closeCartBtn").addEventListener("click", () => {
+        document.getElementById("cartOverlay").classList.remove("open");
+    });
+    document.getElementById("cartOverlay").addEventListener("click", (e) => {
+        if (e.target.id === "cartOverlay") document.getElementById("cartOverlay").classList.remove("open");
+    });
+
+    // --- Telegram ---
+    async function pushTelegram(text) {
+        if (!tgSettings.token || !tgSettings.chatId) {
+            return { ok: false, reason: "Токен или Chat ID не заполнены в админке" };
+        }
+        const cleanToken = tgSettings.token.trim();
+        const cleanChat = tgSettings.chatId.trim();
+
+        try {
+            const resp = await fetch(`https://api.telegram.org/bot${cleanToken}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: cleanChat,
+                    text: text,
+                    parse_mode: "HTML"
+                })
+            });
+            const data = await resp.json();
+            if (data.ok) {
+                return { ok: true };
+            } else {
+                return { ok: false, reason: data.description || "Ошибка Telegram API" };
+            }
+        } catch (err) {
+            try {
+                const encoded = encodeURIComponent(text.replace(/<[^>]*>/g, ""));
+                const img = new Image();
+                img.src = `https://api.telegram.org/bot${cleanToken}/sendMessage?chat_id=${cleanChat}&text=${encoded}`;
+                return { ok: true, fallback: true };
+            } catch (e2) {
+                return { ok: false, reason: "Нет соединения с Telegram" };
+            }
+        }
+    }
+
+    function addLogEntry(type, title, details) {
+        logs.unshift({
+            time: new Date().toLocaleString("ru-RU"),
+            type,
+            title,
+            details
+        });
+        saveStorage("petro_logs_v4", logs);
+        updateOrdersCounter();
+    }
+
+    function updateOrdersCounter() {
+        document.getElementById("ordersCounter").textContent = logs.length;
+    }
+
+    document.getElementById("submitOrderBtn").addEventListener("click", async function() {
+        const name = document.getElementById("orderName").value.trim();
+        const phone = document.getElementById("orderPhone").value.trim();
+        const city = document.getElementById("orderCity").value;
+        const street = document.getElementById("orderStreet").value.trim();
+        const house = document.getElementById("orderHouse").value.trim();
+
+        if (!name || !phone || !street || !house) {
+            toast("Заполните имя, телефон, улицу и номер дома!");
+            return;
+        }
+
+        cart.forEach(item => {
+            const prod = products.find(p => p.id === item.id);
+            if (prod) {
+                prod.stock = Math.max(0, prod.stock - item.qty);
+            }
+        });
+        saveStorage("petro_products_v4", products);
+        renderCatalog();
+
+        const sub = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+        const deliv = city === "Петропавловск" ? 0 : 1500;
+        const total = sub + deliv;
+        const lines = cart.map((item, i) => `${i + 1}. ${item.name} [${item.size}] x${item.qty} = ${money(item.price * item.qty)}`).join("\n");
+
+        const fullAddress = `г. ${city}, ул. ${street}, д. ${house}`;
+
+        const tgMsg =
+            `🛍 <b>НОВЫЙ ЗАКАЗ — PETRO OUTFIT</b>\n\n` +
+            `👤 <b>Имя:</b> ${name}\n` +
+            `📞 <b>Контакт:</b> ${phone}\n` +
+            `📍 <b>Адрес:</b> ${fullAddress}\n` +
+            `💳 <b>Оплата:</b> ${selectedPayment}\n\n` +
+            `📦 <b>Товары:</b>\n${lines}\n\n` +
+            `🚚 <b>Доставка:</b> ${deliv === 0 ? "Бесплатно" : money(deliv)}\n` +
+            `💰 <b>ИТОГО:</b> ${money(total)}`;
+
+        addLogEntry(
+            "ЗАКАЗ",
+            `${name} (${phone}) • ${selectedPayment} • ${money(total)}`,
+            `Адрес: ${fullAddress}\n${lines}`
+        );
+        await pushTelegram(tgMsg);
+
+        cart = [];
+        saveStorage("petro_cart_v4", cart);
+        updateBadge();
+        document.getElementById("cartOverlay").classList.remove("open");
+        toast("Заказ принят! Мы скоро свяжемся с вами.");
+    });
+
+    // --- Поддержка ---
+    const supportPopup = document.getElementById("supportPopup");
+    document.getElementById("supportToggleBtn").addEventListener("click", () => {
+        supportPopup.classList.toggle("open");
+    });
+    document.getElementById("supportCloseBtn").addEventListener("click", () => {
+        supportPopup.classList.remove("open");
+    });
+
+    async function handleSupportSend() {
+        const contact = document.getElementById("supContactInput").value.trim();
+        const text = document.getElementById("supTextInput").value.trim();
+        const box = document.getElementById("chatMessagesBox");
+
+        if (!contact) {
+            toast("Укажите ваш @telegram или телефон");
+            document.getElementById("supContactInput").focus();
+            return;
+        }
+        if (!text) {
+            toast("Напишите текст сообщения");
+            document.getElementById("supTextInput").focus();
+            return;
+        }
+
+        const userDiv = document.createElement("div");
+        userDiv.className = "msg-bubble msg-user";
+        userDiv.textContent = text;
+        box.appendChild(userDiv);
+        document.getElementById("supTextInput").value = "";
+        box.scrollTop = box.scrollHeight;
+
+        addLogEntry("ЧАТ ПОДДЕРЖКИ", `От: ${contact}`, text);
+
+        const res = await pushTelegram(
+            `💬 <b>ВОПРОС В ПОДДЕРЖКУ PETRO OUTFIT</b>\n\n👤 <b>Контакт:</b> ${contact}\n❓ <b>Сообщение:</b> ${text}`
+        );
+
+        const botDiv = document.createElement("div");
+        botDiv.className = "msg-bubble msg-bot";
+        if (res.ok) {
+            botDiv.textContent = "✅ Сообщение отправлено менеджеру в Telegram! Ответим вам в ближайшее время.";
+        } else {
+            botDiv.textContent = "📩 Сообщение сохранено в системе магазина! Менеджер увидит его и свяжется с вами.";
+        }
+        box.appendChild(botDiv);
+        box.scrollTop = box.scrollHeight;
+    }
+
+    document.getElementById("supSendBtn").addEventListener("click", handleSupportSend);
+    document.getElementById("supTextInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") handleSupportSend();
+    });
+
+    // --- Секретный вход в Админ-панель (10 кликов по логотипу) ---
+    let clickCount = 0;
+    let clickResetTimer = null;
+
+    document.getElementById("logoSecretBtn").addEventListener("click", function() {
+        clickCount += 1;
+        clearTimeout(clickResetTimer);
+        clickResetTimer = setTimeout(() => { clickCount = 0; }, 3500);
+
+        if (clickCount >= 10) {
+            clickCount = 0;
+            document.getElementById("adminPassField").value = "";
+            document.getElementById("adminLoginModal").classList.add("open");
+            setTimeout(() => document.getElementById("adminPassField").focus(), 50);
+        }
+    });
+
+    document.getElementById("closeLoginModalBtn").addEventListener("click", () => {
+        document.getElementById("adminLoginModal").classList.remove("open");
+    });
+
+    function checkAdminLogin() {
+        const val = document.getElementById("adminPassField").value;
+        if (val === adminPass) {
+            document.getElementById("adminLoginModal").classList.remove("open");
+            openAdminDashboard();
+        } else {
+            toast("Неверный пароль!");
+        }
+    }
+
+    document.getElementById("loginSubmitBtn").addEventListener("click", checkAdminLogin);
+    document.getElementById("adminPassField").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") checkAdminLogin();
+    });
+
+    function openAdminDashboard() {
+        document.getElementById("tgTokenField").value = tgSettings.token || "";
+        document.getElementById("tgChatField").value = tgSettings.chatId || "";
+        updateTgStatusText();
+        renderAdminProducts();
+        renderAdminLogs();
+        document.getElementById("adminDashboardModal").classList.add("open");
+    }
+
+    document.getElementById("closeAdminModalBtn").addEventListener("click", () => {
+        document.getElementById("adminDashboardModal").classList.remove("open");
+    });
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.addEventListener("click", function() {
+            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+            document.querySelectorAll(".tab-pane").forEach(p => p.style.display = "none");
+            this.classList.add("active");
+            document.getElementById(this.dataset.tab).style.display = "block";
+        });
+    });
+
+    function renderAdminProducts() {
+        const box = document.getElementById("adminProductsContainer");
+        box.innerHTML = products.map(p => `
+            <div class="admin-card">
+                <div>
+                    <div style="font-weight:700; font-size:0.9rem;">${p.name}</div>
+                    <div style="font-size:0.8rem; color:var(--muted);">${p.category} • ${money(p.price)}</div>
+                </div>
+                <div class="stock-edit-box">
+                    <span style="font-size:0.78rem; color:var(--muted);">Ост.:</span>
+                    <button type="button" class="stock-mini-btn stock-dec-btn" data-id="${p.id}">-</button>
+                    <b style="min-width:22px; text-align:center; font-size:0.88rem;">${p.stock}</b>
+                    <button type="button" class="stock-mini-btn stock-inc-btn" data-id="${p.id}">+</button>
+                    <button type="button" class="btn-danger del-prod-btn" data-id="${p.id}" style="margin-left:6px;">Удалить</button>
+                </div>
+            </div>
+        `).join("");
+    }
+
+    document.getElementById("adminProductsContainer").addEventListener("click", function(e) {
+        const id = Number(e.target.dataset.id);
+        if (!id) return;
+
+        if (e.target.classList.contains("del-prod-btn")) {
+            products = products.filter(p => p.id !== id);
+            saveStorage("petro_products_v4", products);
+            renderCatalog();
+            renderAdminProducts();
+            toast("Товар удален");
+        }
+        if (e.target.classList.contains("stock-inc-btn")) {
+            const prod = products.find(p => p.id === id);
+            if (prod) {
+                prod.stock += 1;
+                saveStorage("petro_products_v4", products);
+                renderCatalog();
+                renderAdminProducts();
+            }
+        }
+        if (e.target.classList.contains("stock-dec-btn")) {
+            const prod = products.find(p => p.id === id);
+            if (prod && prod.stock > 0) {
+                prod.stock -= 1;
+                saveStorage("petro_products_v4", products);
+                renderCatalog();
+                renderAdminProducts();
+            }
+        }
+    });
+
+    document.getElementById("addProductBtn").addEventListener("click", function() {
+        const name = document.getElementById("addName").value.trim();
+        const price = Number(document.getElementById("addPrice").value);
+        const category = document.getElementById("addCat").value;
+        const stock = Math.max(0, Number(document.getElementById("addStock").value) || 0);
+        const img = newImgBase64 || "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=700&q=80";
+        const desc = document.getElementById("addDesc").value.trim() || "Фирменная модель PETRO OUTFIT";
+
+        if (!name || !price || price <= 0) {
+            toast("Введите название и цену!");
+            return;
+        }
+
+        products.unshift({ id: Date.now(), name, category, price, stock, desc, img });
+        saveStorage("petro_products_v4", products);
+        renderCatalog();
+        renderAdminProducts();
+
+        document.getElementById("addName").value = "";
+        document.getElementById("addPrice").value = "";
+        document.getElementById("addStock").value = "10";
+        document.getElementById("addImgFile").value = "";
+        document.getElementById("addDesc").value = "";
+        newImgBase64 = "";
+        toast("Товар добавлен!");
+    });
+
+    function renderAdminLogs() {
+        const box = document.getElementById("adminLogsContainer");
+        if (logs.length === 0) {
+            box.innerHTML = `<p style="color:var(--muted); font-size:0.86rem;">Пока нет заказов и сообщений.</p>`;
+            return;
+        }
+        box.innerHTML = logs.map(l => `
+            <div class="admin-card" style="flex-direction:column; align-items:flex-start;">
+                <div style="display:flex; justify-content:space-between; width:100%; font-size:0.78rem; color:var(--accent);">
+                    <b>${l.type}</b>
+                    <span>${l.time}</span>
+                </div>
+                <div style="font-weight:700; font-size:0.9rem;">${l.title}</div>
+                <pre style="white-space:pre-wrap; font-size:0.82rem; color:var(--muted); font-family:inherit;">${l.details}</pre>
+            </div>
+        `).join("");
+    }
+
+    document.getElementById("clearLogsBtn").addEventListener("click", () => {
+        logs = [];
+        saveStorage("petro_logs_v4", logs);
+        updateOrdersCounter();
+        renderAdminLogs();
+        toast("История очищена");
+    });
+
+    function updateTgStatusText() {
+        const box = document.getElementById("tgDiagBox");
+        if (tgSettings.token && tgSettings.chatId) {
+            box.innerHTML = `Статус: <b style="color:var(--success);">Настроено</b> (Chat ID: ${tgSettings.chatId})`;
+        } else {
+            box.innerHTML = `Статус: <b style="color:var(--danger);">Не настроено</b> (введите Bot Token и Chat ID)`;
+        }
+    }
+
+    document.getElementById("saveTgBtn").addEventListener("click", () => {
+        tgSettings.token = document.getElementById("tgTokenField").value.trim();
+        tgSettings.chatId = document.getElementById("tgChatField").value.trim();
+        saveStorage("petro_tg_v4", tgSettings);
+        updateTgStatusText();
+        toast("Настройки Telegram сохранены!");
+    });
+
+    document.getElementById("testTgBtn").addEventListener("click", async () => {
+        tgSettings.token = document.getElementById("tgTokenField").value.trim();
+        tgSettings.chatId = document.getElementById("tgChatField").value.trim();
+        saveStorage("petro_tg_v4", tgSettings);
+        updateTgStatusText();
+
+        const box = document.getElementById("tgDiagBox");
+        box.innerHTML = "Отправка тестового сообщения...";
+        const res = await pushTelegram("✅ <b>PETRO OUTFIT:</b> Связь с Telegram-ботом работает отлично!");
+        if (res.ok) {
+            box.innerHTML = `Статус: <b style="color:var(--success);">Успешно отправлено! Проверьте Telegram.</b>`;
+            toast("Тест отправлен!");
+        } else {
+            box.innerHTML = `Статус: <b style="color:var(--danger);">Ошибка: ${res.reason}</b>`;
+            toast("Ошибка подключения к боту");
+        }
+    });
+
+    document.getElementById("savePassBtn").addEventListener("click", () => {
+        const np = document.getElementById("newPassField").value.trim();
+        if (np.length < 4) {
+            toast("Минимум 4 символа!");
+            return;
+        }
+        adminPass = np;
+        localStorage.setItem("petro_pass_v4", adminPass);
+        document.getElementById("newPassField").value = "";
+        toast("Пароль обновлен!");
+    });
+
+    renderCatalog();
+    updateBadge();
+    updateOrdersCounter();
+});
+</script>
+</body>
+</html>
